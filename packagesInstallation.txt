@@ -1,0 +1,95 @@
+# Author: Habib Sabiu
+# Date: March 31, 2017
+# Purpose: A list of commands to install all the required packages
+#          needed to run our image processing applications 
+# Copyright: Any person can adopt this script for their specific need
+
+
+=================================================================================
+***Change password***
+passwd
+
+***Change to root***
+sudo bash
+
+***Change shell to bash***
+***Note: you have to login as root***
+chsh -s /bin/bash userNameToChange
+=================================================================================
+
+=================================================================================
+***Install Python2.7***
+sudo add-apt-repository ppa:fkrull/deadsnakes
+sudo apt-get update
+sudo apt-get install python2.7
+
+***Change default python to python2.7***
+***Note: you have to login as root***
+update-alternatives --list python
+update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+=================================================================================
+
+=================================================================================
+***Install pip***
+sudo apt-get install python-pip python-dev build-essential
+sudo pip install --upgrade pip
+=================================================================================
+
+=================================================================================
+***install scipy, numpy etc***
+sudo apt-get install python-numpy python-scipy python-matplotlib ipython ipython-notebook python-pandas python-sympy python-nose
+=================================================================================
+
+=================================================================================
+***Install openCV v2.4 (Not using this one any more)***
+sudo apt-get install python-opencv
+
+***Uninstall openCV***
+
+***If installed using apt-get***
+sudo apt-get purge libopencv*
+
+***If installed from source***
+sudo make uninstall
+sudo rm -r /usr/local/include/opencv2 /usr/local/include/opencv /usr/include/opencv /usr/include/opencv2 /usr/local/share/opencv /usr/local/share/OpenCV /usr/share/opencv /usr/share/OpenCV /usr/local/bin/opencv* /usr/local/lib/libopencv*
+=================================================================================
+
+=================================================================================
+***Install pydoop***
+sudo sh -c "ls ; export HADOOP_HOME=/usr/local/hadoop/; export JAVA_HOME=/usr/lib/jvm/java-8-oracle/; pip install pydoop"
+
+***Run hadoop with more memory***
+HADOOP_CLIENT_OPTS=“-Xmx30g” hadoop fs -put /source/folder /destination/folder/
+=================================================================================
+
+=================================================================================
+***Install openCV v3.1***
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install build-essential cmake git
+
+sudo apt-get install ffmpeg libopencv-dev libgtk-3-dev python-numpy python3-numpy libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff5-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libxine2-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libv4l-dev libtbb-dev qtbase5-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev x264 v4l-utils unzip
+
+git clone https://github.com/Itseez/opencv.git
+cd opencv
+git checkout 3.1.0
+
+cd ..
+
+git clone https://github.com/Itseez/opencv_contrib.git
+cd opencv_contrib
+git checkout 3.1.0
+
+cd opencv
+
+mkdir build
+cd build/
+
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D INSTALL_C_EXAMPLES=OFF -D INSTALL_PYTHON_EXAMPLES=ON -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules -D BUILD_EXAMPLES=ON ..
+
+make
+sudo make install
+sudo /bin/bash -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
+sudo ldconfig
+sudo apt-get update
+=================================================================================

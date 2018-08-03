@@ -1,0 +1,3 @@
+cd /data/habib/scripts/set_1/ && nohup python jobs_set_1.py && cd /data/habib/scripts/set_2/ && nohup python jobs_set_2.py &
+cd /data/habib/scripts/set_1/ && nohup python jobs_set_1.py & sleep 3600 ; cd /data/habib/scripts/set_2/ && nohup python jobs_set_2.py &
+
